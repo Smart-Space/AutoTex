@@ -6,6 +6,7 @@ from PIL import Image, ImageGrab, ImageTk
 from latex2mathml.converter import convert
 from webviewpy import Webview, webview_native_handle_kind_t
 from ctypes import windll
+from pystray import Icon, MenuItem
 from tinui import *
 
 import data
@@ -162,10 +163,16 @@ def webview_resize(e):
     height=e.height
     windll.user32.MoveWindow(webhwnd, 0, 0, width, height, True)# 其他平台无此方法，需要另行实现
 
+def showabout():
+    ...
+
 def quitApp():
     threadpool.shutdown(wait=False, cancel_futures=True)
+    icon.visible=False
+    icon.stop()
     root.destroy()
-    quit()
+    web.destroy()
+    root.quit()
 
 root=Tk()
 # 居中显示
@@ -181,7 +188,7 @@ root.iconbitmap('./asset/icon.ico')
 data.root=root
 
 root.bind("<<ModelLoaded>>", model_loaded)
-root.protocol("WM_DELETE_WINDOW", quitApp)
+root.protocol("WM_DELETE_WINDOW", lambda: root.withdraw())
 root.update()
 
 threadpool=ThreadPoolExecutor(max_workers=1)
@@ -246,5 +253,10 @@ vp2.add_child(ep3,weight=1)
 
 ep2.set_child(canvasid)
 ep3.set_child(dispid)
+
+menu=(MenuItem('显示', lambda: root.deiconify(), default=True), MenuItem('关于', showabout), MenuItem('退出', quitApp))
+iconimage=Image.open('./asset/icon.ico')
+icon=Icon('AutoTex', iconimage, 'AutoTex', menu)
+icon.run_detached()
 
 root.mainloop()
