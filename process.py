@@ -1,6 +1,6 @@
 import torch
 import argparse
-from PIL import Image, ImageStat, ImageOps
+from PIL import ImageStat, ImageOps
 
 import data
 
@@ -16,6 +16,7 @@ def load_model():
     from unimernet.processors import load_processor
 
     device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    data.device=device
     args = argparse.Namespace(cfg_path="./configs/demo.yaml", options=None)
     cfg = Config(args)
     task = tasks.setup_task(cfg)

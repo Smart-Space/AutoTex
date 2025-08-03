@@ -14,7 +14,7 @@ from process import load_model, process_img
 
 
 def model_loaded(e):
-    change_info('准备就绪')
+    change_info(f'准备就绪({data.device})')
     root.bind("<Control-v>", cli_get)
     root.bind("<<ImageInverted>>", img_inverted)
     root.bind("<<ImageNotInverted>>", img_not_inverted)
