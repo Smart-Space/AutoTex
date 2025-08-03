@@ -221,6 +221,7 @@ vp.add_child(ep,weight=1)
 textitem=ui.add_textbox((0,0), linew=2, scrollbar=True)
 text=textitem[0]
 text.config(state='disabled')
+text.focus_set()
 textid=textitem[-1]
 del textitem
 ep.set_child(textid)
