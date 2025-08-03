@@ -16,6 +16,9 @@
 
 ## 特点
 
+<img width="2004" height="1464" alt="image" src="https://github.com/user-attachments/assets/a727df7c-8969-4d65-8e79-cc53e54bef12" />
+
+
 ### 可支持独立gpu
 
 如果使用了支持gpu的pytorch，就可以使用gpu。
