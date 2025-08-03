@@ -69,7 +69,9 @@ math_html=f'''<!DOCTYPE html>
         body {{
             margin: 0;
             padding: 0;
+            position: absolute;
             background-color: white;
+            overflow: auto;
         }}
         .math-container {{
             display: flex;
@@ -171,7 +173,6 @@ def quitApp():
     icon.visible=False
     icon.stop()
     root.destroy()
-    web.destroy()
     root.quit()
 
 root=Tk()
