@@ -10,7 +10,7 @@
 >
 >由于本项目使用tkinter，支持mathml困难，使用的webviewpy虽然跨平台，但是webview控件随着窗口变换而改变尺寸的操作仅在Windows下通过User32实现，其他平台不支持也无法测试。
 
-此前，就图片底色影响识别、图片上传流程便捷性的问题，我单独fork了一个分支[Smart-Space/FreeTex](https://github.com/Smart-Space/FreeTex)并进行了一定的改写。不过原软件使用GPL协议，且当前在功能上已经足够完善，现单独使用MIT协议重新开发了一个简单的公式识别应用（注意UniMERNet本身协议限制），这么做是为了更适合我自己的使用习惯~~（其实是为了展示TinUI的面板布局能力😋）~~。
+此前，就图片底色影响识别、图片上传流程便捷性的问题，我单独fork了一个分支[Smart-Space/FreeTex](https://github.com/Smart-Space/FreeTex)并进行了一定的改写。不过原软件使用GPL协议，且当前在功能上已经足够完善，现单独使用MIT协议重新开发了一个简单的公式识别应用（注意UniMERNet本身协议限制），这么做是为了更适合我自己的使用习惯<del>（其实是为了展示TinUI的面板布局能力😋）</del>。
 
 **普通用户，请使用FreeTex作者提供的发行版软件。**
 
