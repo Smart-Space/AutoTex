@@ -16,8 +16,7 @@
 
 ## 特点
 
-<img width="80%" alt="image" src="https://github.com/user-attachments/assets/a727df7c-8969-4d65-8e79-cc53e54bef12" />
-
+<img width="80%" alt="image" src="https://github.com/user-attachments/assets/d40964bf-d249-4c0b-baf5-eb0d16347755" />
 
 ### 可支持独立gpu
 
