@@ -66,7 +66,12 @@ def cli_get(e=None):
 
 def copy(e):
     root.clipboard_clear()
-    root.clipboard_append(data.latexstring)
+    if latex_add_code==0:
+        root.clipboard_append(data.latexstring)
+    elif latex_add_code==1:
+        root.clipboard_append(f'$${data.latexstring}$$')
+    elif latex_add_code:
+        root.clipboard_append(f'\\begin{{equation}}{data.latexstring}\\end{{equation}}')
 
 def copy_mathml(e):
     root.clipboard_clear()
@@ -86,6 +91,17 @@ def set_reverse(flag):
         change_info('正在处理图片')
         threadpool.submit(process_img)
         root.unbind("<Control-v>")
+
+latex_add_dict={
+    '公式包裹(默认无)': 0,
+    '无包裹': 0,
+    '$$...$$': 1,
+    '\\begin{equation}...': 2
+}
+latex_add_code=0
+def latex_add(string):
+    global latex_add_code
+    latex_add_code=latex_add_dict[string]
 
 
 def change_info(text):
@@ -148,7 +164,7 @@ vp.add_child(top,50)
 btn=ui.add_button2((0,0), text='复制', command=copy, anchor='w')[-1]
 top.add_child(btn,50)
 btn=ui.add_button2((0,0), text='复制MathML(Word)', command=copy_mathml, anchor='w')[-1]
-top.add_child(btn,200)
+top.add_child(btn,230)
 onoff,onoffid=ui.add_onoff((0,0), bd=30, command=set_reverse, anchor='w')[-2:]
 top.add_child(onoffid,40)
 para=ui.add_paragraph((0,0), text='原图', anchor='w')
@@ -164,8 +180,12 @@ textid=textitem[-1]
 del textitem
 ep.set_child(textid)
 
+bop=HorizonPanel(ui, spacing=5, padding=(0, 5, 0, 5))
+vp.add_child(bop,40)
 info=ui.add_paragraph((0,0), text='模型加载中...', anchor='w')
-vp.add_child(info,30)
+bop.add_child(info,200)
+combobutton=ui.add_combobox((0,0), width=150, height=120, text='公式包裹(默认无)', content=('无包裹','$$...$$','\\begin{equation}...'), command=latex_add, anchor='w')[-1]
+bop.add_child(combobutton,120)
 
 canvasitem=ui.add_ui((0,0), bg='#fafbfd')# 用于存放图片
 canvas=canvasitem[0]
