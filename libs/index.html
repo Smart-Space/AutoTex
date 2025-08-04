@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        // 绑定control-v事件
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'v') {
+                window.get_ctrl_v()
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="./katex/katex.min.css">
+    <script type="text/javascript" src="./katex/katex.min.js"></script>
+    <script type="text/javascript" src="./katex/contrib/auto-render.min.js"></script>
+    <script>
+        function render(latex) {
+            document.getElementsByClassName('math-container')[0].innerHTML = latex;
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true }
+                ],
+                throwOnError: false
+            });
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            position: absolute;
+            background-color: white;
+            overflow: auto;
+        }
+        .math-container {
+            height: 100%;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="math-container">
+        数学公式将在此显示。将图片粘贴到此应用进行识别。
+    </div>
+</body>
+</html>

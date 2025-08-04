@@ -26,72 +26,6 @@ def img_inverted(e):
 def img_not_inverted(e):
     onoff.off()
 
-with open('./libs/katex/katex.min.js','r') as f:
-    js=f.read()
-with open('./libs/katex/contrib/auto-render.min.js','r') as f:
-    ar=f.read()
-math_html=f'''<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <script>
-        window.css = false;
-        function css_loaded() {{
-            window.css = true
-        }}
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" onload="css_loaded()">
-    <script>
-        {js}
-    </script>
-    <script>
-        {ar}
-    </script>
-    <script>
-        function render(latex) {{
-            document.getElementsByClassName('math-container')[0].innerHTML = latex;
-            renderMathInElement(document.body, {{
-                delimiters: [
-                    {{ left: '$$', right: '$$', display: true }},
-                    {{ left: '$', right: '$', display: false }},
-                    {{ left: '\\\\(', right: '\\\\)', display: false }},
-                    {{ left: '\\\\[', right: '\\\\]', display: true }}
-                ],
-                throwOnError: false
-            }});
-            if (!window.css) {{
-                let elements = document.getElementsByClassName('katex-html');
-                elements[0].parentNode.removeChild(elements[0]);
-            }}
-        }}
-    </script>
-    <style>
-        body {{
-            margin: 0;
-            padding: 0;
-            position: absolute;
-            background-color: white;
-            overflow: auto;
-        }}
-        .math-container {{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            font-size: 20px;
-        }}
-    </style>
-</head>
-<body>
-    <div class="math-container">
-        数学公式将在此显示。将图片粘贴到此应用进行识别。
-    </div>
-</body>
-</html>'''
-
 def load_latex(e):
     global do_process
     change_info('正在渲染公式')
@@ -107,7 +41,7 @@ def load_latex(e):
     change_info('已完成识别')
     do_process=True
 
-def cli_get(e):
+def cli_get(e=None):
     # 剪切板获取数据
     global do_process
     do_process=False
@@ -166,7 +100,10 @@ def webview_resize(e):
     windll.user32.MoveWindow(webhwnd, 0, 0, width, height, True)# 其他平台无此方法，需要另行实现
 
 def showabout():
-    ...
+    # 托盘在子线程中，为了防止出错，这里同样使用事件触发机制
+    root.event_generate("<<ShowAbout>>")
+def __showabout(e):
+    show_info(root, 'AutoTex', '一个简单易用的本地公式识别工具。')
 
 def quitApp():
     threadpool.shutdown(wait=False, cancel_futures=True)
@@ -241,7 +178,7 @@ web=Webview(debug=False, window=disp.winfo_id())
 webhwnd=web.get_native_handle(
     webview_native_handle_kind_t.WEBVIEW_NATIVE_HANDLE_KIND_UI_WIDGET
 )
-web.set_html(math_html)
+web.navigate(f"file:///{os.path.dirname(__file__)}/libs/index.html")
 disp.bind("<Configure>", webview_resize)
 dispid=dispitem[-1]
 del dispitem
@@ -261,4 +198,7 @@ iconimage=Image.open('./asset/icon.ico')
 icon=Icon('AutoTex', iconimage, 'AutoTex', menu)
 icon.run_detached()
 
+root.bind('<Button-1>',lambda e: text.focus_force())
+root.bind("<<ShowAbout>>", __showabout)
+web.bind('get_ctrl_v', cli_get, True)
 root.mainloop()

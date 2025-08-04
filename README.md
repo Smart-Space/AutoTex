@@ -16,7 +16,7 @@
 
 ## 特点
 
-<img width="2004" height="1464" alt="image" src="https://github.com/user-attachments/assets/a727df7c-8969-4d65-8e79-cc53e54bef12" />
+<img width="80%" alt="image" src="https://github.com/user-attachments/assets/a727df7c-8969-4d65-8e79-cc53e54bef12" />
 
 
 ### 可支持独立gpu
@@ -83,4 +83,4 @@ python main.py
 
 ## 题外话
 
-好吧，我承认，是为了展示TinUI的面板布局，顺带制作一个匹配我习惯的公式识别软件。
+好吧，我承认，是为了展示TinUI的面板布局，顺带制作一个匹配我习惯的公式识别软件😭。
