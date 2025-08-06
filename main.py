@@ -4,8 +4,7 @@ from tkinter import Tk
 from concurrent.futures import ThreadPoolExecutor
 from PIL import Image, ImageGrab, ImageTk
 from latex2mathml.converter import convert
-from webviewpy import Webview, webview_native_handle_kind_t
-from ctypes import windll
+from tkwebview import TkWebview as Webview
 from pystray import Icon, MenuItem
 from tinui import *
 
@@ -110,11 +109,6 @@ def change_info(text):
 def updateExpand(e):
     rp.update_layout(0, 0, e.width, e.height)
 
-def webview_resize(e):
-    width=e.width
-    height=e.height
-    windll.user32.MoveWindow(webhwnd, 0, 0, width, height, True)# 其他平台无此方法，需要另行实现
-
 def showabout():
     # 托盘在子线程中，为了防止出错，这里同样使用事件触发机制
     root.event_generate("<<ShowAbout>>")
@@ -194,12 +188,6 @@ del canvasitem
 
 dispitem=ui.add_ui((0,0))# 用于显示效果
 disp=dispitem[0]
-web=Webview(debug=False, window=disp.winfo_id())
-webhwnd=web.get_native_handle(
-    webview_native_handle_kind_t.WEBVIEW_NATIVE_HANDLE_KIND_UI_WIDGET
-)
-web.navigate(f"file:///{os.path.dirname(__file__)}/libs/index.html")
-disp.bind("<Configure>", webview_resize)
 dispid=dispitem[-1]
 del dispitem
 
@@ -220,5 +208,10 @@ icon.run_detached()
 
 root.bind('<Button-1>',lambda e: text.focus_force())
 root.bind("<<ShowAbout>>", __showabout)
-web.bind('get_ctrl_v', cli_get, True)
+
+web=Webview(disp)
+web.pack(fill='both', expand=True)
+web.navigate(f"file:///{os.path.dirname(__file__)}/libs/index.html")
+web.bindjs('get_ctrl_v', cli_get, True)
+
 root.mainloop()
