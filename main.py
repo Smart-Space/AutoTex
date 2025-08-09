@@ -35,7 +35,7 @@ def load_latex(e):
     text.insert('end', data.latexstring)
     text.config(state='disabled')
     text.update()
-    result=data.latexstring.replace('\\', '\\\\').replace("'", "\\'").replace('"', '\\"')
+    result=data.latexstring.replace('\\', '\\\\').replace("'", "\\'").replace('"', "\\'\\'")
     web.eval(f'render("$${result}$$")')
     change_info('已完成识别')
     do_process=True
