@@ -32,7 +32,7 @@ def load_latex(e):
     root.bind("<Control-v>", cli_get)
     text.config(state='normal')
     text.delete(1.0, 'end')
-    text.insert('end', data.latexstring)
+    text.insert('end', data.latexstring.replace('\\\\', '\\\\\n'))
     text.config(state='disabled')
     text.update()
     result=data.latexstring.replace('\\', '\\\\').replace("'", "\\'").replace('"', '\\"')
@@ -65,12 +65,13 @@ def cli_get(e=None):
 
 def copy(e):
     root.clipboard_clear()
+    text=data.latexstring.replace('\\\\', '\\\\\n')
     if latex_add_code==0:
-        root.clipboard_append(data.latexstring)
+        root.clipboard_append(text)
     elif latex_add_code==1:
-        root.clipboard_append(f'$${data.latexstring}$$')
+        root.clipboard_append(f"$${text}$$")
     elif latex_add_code:
-        root.clipboard_append(f'\\begin{{equation}}{data.latexstring}\\end{{equation}}')
+        root.clipboard_append(f"\\begin{{equation}}{text}\\end{{equation}}")
 
 def copy_mathml(e):
     if not data.latexstring:
