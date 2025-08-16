@@ -15,8 +15,7 @@
 **普通用户，请使用FreeTex作者提供的发行版软件。**
 
 ## 特点
-
-<img width="80%" alt="image" src="https://github.com/user-attachments/assets/d40964bf-d249-4c0b-baf5-eb0d16347755" />
+<img width="80%" alt="image" src="https://github.com/user-attachments/assets/2ce12a76-fb8c-4813-bd4f-eb075f6dc60b" />
 
 ### 可支持独立gpu
 
