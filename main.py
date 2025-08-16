@@ -1,5 +1,6 @@
 import os
 os.environ['NO_ALBUMENTATIONS_UPDATE']="1"
+os.chdir(os.path.dirname(__file__))
 from tkinter import Tk
 from concurrent.futures import ThreadPoolExecutor
 from PIL import Image, ImageGrab, ImageTk
@@ -167,7 +168,7 @@ top.add_child(info,200)
 
 ep=ExpandPanel(ui)
 vp.add_child(ep,weight=1)
-textitem=ui.add_textbox((0,0), linew=2, scrollbar=True)
+textitem=ui.add_textbox((0,0), scrollbar=True)
 text=textitem[0]
 text.config(state='disabled')
 text.focus_set()
