@@ -33,7 +33,7 @@ def load_latex(e):
     root.bind("<Control-v>", cli_get)
     text.config(state='normal')
     text.delete(1.0, 'end')
-    text.insert('end', data.latexstring.replace('\\\\', '\\\\\n'))
+    text.insert('end', data.latexstring.replace('\\\\', '\\\\\n').strip())
     text.config(state='disabled')
     text.update()
     result=data.latexstring.replace('\\', '\\\\').replace("'", "\\'").replace('"', '\\"')
