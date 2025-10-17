@@ -45,7 +45,7 @@ def process_img():
             data.root.event_generate("<<ImageNotInverted>>")
     elif data.reverse == 1:
         img=ImageOps.invert(img)
-    
+
     image_tensor=vis_processor(img).unsqueeze(0).to(device)
     with torch.no_grad():
         output=model.generate({"image": image_tensor})

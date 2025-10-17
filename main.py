@@ -66,7 +66,7 @@ def cli_get(e=None):
 
 def copy(e):
     root.clipboard_clear()
-    text=data.latexstring.replace('\\\\', '\\\\\n')
+    text=data.latexstring.replace('\\\\', '\\\\\n').strip()
     if latex_add_code==0:
         root.clipboard_append(text)
     elif latex_add_code==1:
